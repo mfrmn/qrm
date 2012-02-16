@@ -38,7 +38,7 @@
  arch4
  # mean is E[Y_t] (if greater than 0 => there is a mean intercept)
  # omega is the variance intercept
- plot(arch4, which="all")
+ plot(arch4, which=1)
 
 # - [ ARCH Diagnostics ] -
 
@@ -62,7 +62,7 @@
                     fixed.pars=list(ma2=0,ma3=0))
  garch1 <- ugarchfit(data=lppi.d1, spec=spec)
  garch1
- plot(garch1, which="all")
+ plot(garch1, which=1)
 
 # - [ GARCH Diagnostics ] -
 
@@ -140,6 +140,7 @@
  forc <- ugarchforecast(fit, n.ahead=20)
  forc.roll <- ugarchforecast(fit, n.ahead=20, n.roll=20)
  # -> rolling forecast creates a new forecast as data becomes available
+ # NB: a rolling forecast can only be performed when out.sample > 0
  forc
  forc.roll@forecast$forecasts
  
@@ -147,12 +148,6 @@
  plot(forc,which=1) # non-rolling forecast of series
  plot(forc.roll,which=2) # rolling forecast of series
  plot(forc,which=3) # forecast of sigma
-
-# - [ Explore the accuracy of the forecast ] -
- fpm(forc) # accuracy of non-rolling forecast
- which.min(fpm(forc.roll)[1,])
- which.min(fpm(forc.roll)[2,])
- # -> forecast will 1-roll has lowest MSE and MAE
  
 # - [ Can also forecast using the full data set ] -
  fit <- ugarchfit(data=lppi.d1, spec=spec)
