@@ -185,7 +185,7 @@
  main <- arima1.14
  par(mfrow=c(1,2)) ; acf(main$resid) ; pacf(main$resid)
  nNA <- is.na(main$res) == F
- ljung.box.test.1(tmp[nNA],seq(1,15,1))[,1]
+ ljung.box.test.1(main$res[nNA],seq(1,15,1))[,2] # there are the p-values
  
 # - [ Test residuals for normality ] -
  par(mfrow=c(1,1))
@@ -218,28 +218,28 @@
 ## =================================================
  
 # - [ Generate forecasts for the observations we dropped ] -
- sarima3.pred <- predict(sarima2, n.ahead=4) ; sarima3.pred
+ sarima2.pred <- predict(sarima2, n.ahead=4) ; sarima2.pred
  arima1.14.pred <- predict(arima1.14, n.ahead=4) ; arima1.14.pred
 
 # - [ Convert back to the original scale ] -
- predS3.vec <- exp(sarima3.pred$pred+0.5*sarima3.pred$se^2)
+ predS2.vec <- exp(sarima2.pred$pred+0.5*sarima2.pred$se^2)
  pred1.14.vec <- exp(arima1.14.pred$pred+0.5*arima1.14.pred$se^2)
  # -> Be very careful, the method described here works only when
- #    having taken logs. Notice the extra 0.5*sarima3.pred$se^2.
+ #    having taken logs. Notice the extra 0.5*sarima2.pred$se^2.
 
 # - [ Calculate 95% bounds ] -
- predS3.l.vec <- exp(sarima3.pred$pred-qnorm(0.95)*sarima3.pred$se)
- predS3.u.vec <- exp(sarima3.pred$pred+qnorm(0.95)*sarima3.pred$se)
+ predS2.l.vec <- exp(sarima2.pred$pred-qnorm(0.95)*sarima2.pred$se)
+ predS2.u.vec <- exp(sarima2.pred$pred+qnorm(0.95)*sarima2.pred$se)
  
  pred1.14.l.vec <- exp(arima1.14.pred$pred-qnorm(0.95)*arima1.14.pred$se)
  pred1.14.u.vec <- exp(arima1.14.pred$pred+qnorm(0.95)*arima1.14.pred$se)
 
 # - [ Examine the forecasts ] -
- cbind(predS3.l.vec,predS3.vec, predS3.u.vec)
+ cbind(predS2.l.vec,predS2.vec, predS2.u.vec)
  cbind(pred1.14.l.vec,pred1.14.vec, pred1.14.u.vec)
 
 # - [ Compare forecasts to actual ] -
- accuracy(predS3.vec,window(ppi.ts,start=c(2001,2)))
+ accuracy(predS2.vec,window(ppi.ts,start=c(2001,2)))
  accuracy(pred1.14.vec,window(ppi.ts,start=c(2001,2)))
  
  # - [ Why is our forecast so far out? ] -
