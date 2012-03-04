@@ -35,7 +35,7 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # IV-2SLS Estimation Recipe
-# ~~ STEP 1: Try to deterime whether endogeneity might play a role :
+# ~~ STEP 1: Try to determine whether endogeneity might play a role :
 #   - based on above, perhaps income and cigarette consumption are JOINTLY determined
 #     - smoking more => have more disposable income
 #     - having more disposable income => can smoke more
@@ -106,7 +106,7 @@
 # - [ Fit a 2SLS model ] -
  coeftest(inc.iv, vcov=hc0)
  # -> note that the coef of cigs is now negative (as expected) and significant at 10% level
- # -> estimated effect is large : 1 additional cigarette lowers predicted income by 4.2%
+ # -> estimated effect is large : 1 additional cigarette lowers predicted income by 3.9%
 
 # - [ Compare new to original model ] -
  ivolsdiff <- function(ols,iv) {
@@ -145,7 +145,7 @@
  LM <- length(aux.lm$res) * R2
  # - calculate LM statistic
 
- pchisq(q=LM, df=2-1, lower.tail=T)
+ pchisq(q=LM, df=2-1, lower.tail=FALSE)
  # - degrees of freedom = #instruments (2 here : resaurn and lcigprice) 
  #                        MINUS #endogenous variables (1 here: cigs)
  # => do NOT reject the null that the instruments are valid
@@ -160,7 +160,7 @@
      cf_diff <- coef(model.iv) - coef(model.ols)
      vc_diff <- vcovHC(model.iv, "HC0") - vcovHC(model.ols, "HC0")
      x2_diff <- as.vector(t(cf_diff) %*% solve(vc_diff) %*% cf_diff)
-     pchisq(q = x2_diff, df = dim(vc_diff)[1], lower.tail = F)
+     pchisq(q = x2_diff, df = dim(vc_diff)[1], lower.tail = FALSE)
  }
  dwh.test(inc.ols, inc.iv)
  # => do NOT reject the null of endogeneity
