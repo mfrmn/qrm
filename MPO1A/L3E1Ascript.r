@@ -163,7 +163,7 @@
      pchisq(q = x2_diff, df = dim(vc_diff)[1], lower.tail = FALSE)
  }
  dwh.test(inc.ols, inc.iv)
- # => do NOT reject the null of endogeneity
+ # => do NOT reject the null of exogeneity
 
 
  # And that's all there is to it!
