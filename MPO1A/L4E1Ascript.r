@@ -101,7 +101,7 @@
  mm.means.l[bin.loc] <- c(1,0,0,0,0,0,0,0,0,0,0) # 0 in position of white, 1 for intercept
  # - replace the mean value of all binary variables by desired value
  # -> since we are interested in difference in probability of white being accepted
- #    vs. non-white, the only difference is between the 1 and 0 in whe white column
+ #    vs. non-white, the only difference is between the 1 and 0 in the white column
  
 # - [ Calculate the z-values for white and non-white using logit ] -
  zval.u <- mm.means.u%*%coef(loan.lg2) # white
@@ -192,7 +192,7 @@
                  family=binomial(link=probit), data=subset(loan.dat,is.na(dep)==F))
  # note we have to subset the data set since some of dep values are NA and are 
  # dropped from loan.pb2, but since dep isn't in this model these values would
- # not otherwise be dropped in loan.pb3, so out samples would not be the same!
+ # not otherwise be dropped in loan.pb3, so our samples would not be the same
  
  # generate the LR statistic and obtain the p-value
  D <- 2*(logLik(loan.pb2)[1] - logLik(loan.pb3)[1])

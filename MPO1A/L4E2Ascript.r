@@ -1,5 +1,5 @@
 #############################################################################
-## ~~~~~~~~~~~~~~~ MPO1A - LAB SESSION 4 - EXERCISE 1 ~~~~~~~~~~~~~~~~~~~~ ##
+## ~~~~~~~~~~~~~~~ MPO1A - LAB SESSION 4 - EXERCISE 2 ~~~~~~~~~~~~~~~~~~~~ ##
 #############################################################################
 
 # - [ Header ] - 
@@ -37,8 +37,8 @@
  wage.sub <- subset(wage.dat, select=c("lwage","educ","black","hisp","exper","married","union"))
  for(i in 1:7){
      m <- mean(wage.sub[,i])
-     s.o <- sd(wage.sub[,i])    								                        # overall
-     s.b <- sd(by(wage.sub[,i], wage.dat$nr, mean))						                # between
+     s.o <- sd(wage.sub[,i])                                                            # overall
+     s.b <- sd(by(wage.sub[,i], wage.dat$nr, mean))                                     # between
      s.w <- sd( unlist( by( wage.sub[,i], wage.dat$nr, function(x) x - mean(x) ) ) )    # within
      cat("------------------------------------------ \n")
      cat("Variable:", names(wage.sub)[i], "\n")

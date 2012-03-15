@@ -14,7 +14,7 @@
  
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # IV-2SLS Estimation Recipe
-# ~~ STEP 1: Try to deterime whether endogeneity might play a role
+# ~~ STEP 1: Try to determine whether endogeneity might play a role
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 # - [ Loading and Storing the Data ] -
